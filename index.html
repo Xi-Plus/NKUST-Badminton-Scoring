@@ -9,6 +9,9 @@
 	width: 100%;
 	height: 50px;
 }
+.wrongscore {
+	background-color: #999;
+}
 td {
 	vertical-align: top;
 }
@@ -19,7 +22,7 @@ td {
 function addscore(score) {
 	balltext.innerText = +balltext.innerText + 1;
 	scoretext.innerText = +scoretext.innerText + score;
-	historytext.innerHTML = '<span data-score="' + score + '">' + balltext.innerText + ": " + score + '<br></span>' + historytext.innerHTML;
+	historytext.innerHTML = '<span data-score="' + score + '" data-wrong="0" onclick="markwrongscore(this);">' + balltext.innerText + ": " + score + '<br></span>' + historytext.innerHTML;
 }
 function clearscore() {
 	if (!confirm("Clear?")) {
@@ -39,6 +42,20 @@ function backscore() {
 	balltext.innerText = +balltext.innerText - 1;
 	scoretext.innerText = +scoretext.innerText - +historytext.children[0].getAttribute("data-score");
 	historytext.children[0].remove();
+}
+function markwrongscore(el) {
+	var wrong = +el.getAttribute("data-wrong");
+	if (wrong) {
+		balltext.innerText = +balltext.innerText + 1;
+		scoretext.innerText = +scoretext.innerText + +el.getAttribute("data-score");
+		el.classList.remove("wrongscore");
+		el.setAttribute("data-wrong", "0");
+	} else {
+		balltext.innerText = +balltext.innerText - 1;
+		scoretext.innerText = +scoretext.innerText - +el.getAttribute("data-score");
+		el.classList.add("wrongscore");
+		el.setAttribute("data-wrong", "1");
+	}
 }
 </script>
 <table width="100%">
