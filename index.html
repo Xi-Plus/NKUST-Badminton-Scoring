@@ -66,6 +66,9 @@ function markwrongscore(el) {
 		el.setAttribute("data-wrong", "1");
 	}
 }
+window.onbeforeunload = function(e) {
+	return "";
+}
 </script>
 <table>
 	<tr align="right">
