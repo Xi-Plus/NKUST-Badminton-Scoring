@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">
+.addscore {
+	width: 100%;
+	height: 50px;
+}
+td {
+	vertical-align: top;
+}
+</style>
+</head>
+<body>
+<script type="text/javascript">
+function addscore(score) {
+	balltext.innerText = +balltext.innerText + 1;
+	scoretext.innerText = +scoretext.innerText + score;
+	historytext.innerHTML = '<span data-score="' + score + '">' + balltext.innerText + ": " + score + '<br></span>' + historytext.innerHTML;
+}
+function clearscore() {
+	if (!confirm("Clear?")) {
+		return;
+	}
+	balltext.innerText = "0";
+	scoretext.innerText = "0";
+	historytext.innerHTML = "";
+}
+function backscore() {
+	if (!confirm("Back?")) {
+		return;
+	}
+	if (historytext.children.length == 0) {
+		return;
+	}
+	balltext.innerText = +balltext.innerText - 1;
+	scoretext.innerText = +scoretext.innerText - +historytext.children[0].getAttribute("data-score");
+	historytext.children[0].remove();
+}
+</script>
+<table width="100%">
+	<tr align="right">
+		<td colspan="3">
+			共 <span id="balltext" style="width: 50px;">0</span> 球
+			總分：<span id="scoretext" style="width: 50px;">0</span>
+		</td>
+	</tr>
+	<tr>
+		<td width="33%"><button id="btn1" class="addscore" onclick="addscore(10);">10</button></td>
+		<td width="33%"><button id="btn2" class="addscore" onclick="addscore(9);">9</button></td>
+		<td width="33%"><button id="btn3" class="addscore" onclick="addscore(10);">10</button></td>
+		<td rowspan="6" style="min-width: 45px;">
+			<div id="historytext" style="height: 300px; overflow: scroll;"></div>
+		</td>
+	</tr>
+	<tr>
+		<td width="33%"><button id="btn4" class="addscore" onclick="addscore(8);">8</button></td>
+		<td width="33%"><button id="btn5" class="addscore" onclick="addscore(8);">8</button></td>
+		<td width="33%"><button id="btn6" class="addscore" onclick="addscore(8);">8</button></td>
+	</tr>
+	<tr>
+		<td width="33%"><button id="btn4" class="addscore" onclick="addscore(7);">7</button></td>
+		<td width="33%"><button id="btn5" class="addscore" onclick="addscore(7);">7</button></td>
+		<td width="33%"><button id="btn6" class="addscore" onclick="addscore(7);">7</button></td>
+	</tr>
+	<tr>
+		<td colspan="3"><button id="btn7" class="addscore" onclick="addscore(5);">5</button></td>
+	</tr>
+	<tr>
+		<td colspan="3"><button id="btn7" class="addscore" onclick="addscore(0);">0</button></td>
+	</tr>
+	<tr style="height: 50px;">
+		<td colspan="3"></td>
+	</tr>
+	<tr>
+		<td colspan="4">
+			<button onclick="clearscore();">Clear</button>
+			<button onclick="backscore();" style="margin-left: 10px;">Back</button>
+		</td>
+	</tr>
+</table>
+</body>
+</html>
